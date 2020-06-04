@@ -1,16 +1,6 @@
 #lang racket
 
-; useful helper functions
-(define (all xs)
-  (foldl (lambda (x y) (and x y))
-         `#t xs))
-
-(define (any xs)
-  (foldl (lambda (x y) (or x y))
-         `#f xs))
-
-
-;Encoding and Decoding Laca's 1-3 and alpha-delta symbol chains.
+;Encoding and Decoding Lacan's 1-3 and alpha-delta symbol chains.
 
 ;;; 1 - 3 
 ;; Lacan's 1 - 3 rules
@@ -38,21 +28,21 @@
   (car (filter (λ (sym) (symbol-check base-form sym)) symbols)))
 
 ; Here is the 1-3 encoder which converts a binary string to 1-3 symbols
+
 ; 1 defined as +++ or ---
 (define (is-one? xs)
-  (or (all xs)
-      (all (map not xs))))
+  (or (equal? xs '(+ + +))
+      (equal? xs '(- - -))))
 
-; 3 defined as +-+ or -+-
-(define (is-three? xs)
-  (and (not (is-one? xs))
-       (equal? xs
-               (reverse xs))))
-
-; defined as ++- or -++
 (define (is-two? xs)
-  (and (not (is-one? xs))
-       (not (is-three? xs))))
+  (or (equal? xs '(+ - -))
+      (equal? xs '(- + +))
+      (equal? xs '(+ + -))
+      (equal? xs '(- - +))))
+
+(define (is-three? xs)
+   (or (equal? xs '(+ - +))
+       (equal? xs '(- + -))))
 
 (define (is-n? xs n)
   (cond [(equal? n 1)
@@ -147,7 +137,7 @@
 ; alpha-delta
 
 (define (decode-1-3 sym-exp)
-  (decode sym-exp is-n? '(#f #t) 3))
+  (decode sym-exp is-n? '(+ -) 3))
 
 ;; and now we can create a general solver that will solve any wild card problems
 
@@ -163,184 +153,61 @@
 ; α, β, γ, δ
 ;; Next the α-δ symbols
 
+;; the makes it easy to not have to type in greek letters all the time...
+(define (symbol-to-greek symbol)
+  (cond [(equal? symbol 'alpha) 'α]
+        [(equal? symbol 'beta) 'β]
+        [(equal? symbol 'gamma) 'γ]
+        [(equal? symbol 'delta) 'δ]
+        [else symbol]))
 ;; first we need the symbol checker
 
-;; Lacan's language here is a bit confusing but we can end code his rules anyway
+;; Lacan's language here is a bit confusing but we can encode his rules anyway
 
 (define (first-last-in-pairs? triple options)
   (let ([pair (list
                (first triple)
                (last triple))])
-    (any (map (λ (opt) (equal? pair opt) options)))))
+    (or (map (λ (opt) (equal? pair opt)) options))))
 
-(define (is-α-δ? xs a)
-  (cond [(equal? a α)
+(define (is-alpha-delta? xs a)
+  (cond [(equal? a 'α)
          (first-last-in-pairs? xs
                                '((1 1)
                                  (3 3)
                                  (1 3)
                                  (3 1)))]
-        [(equal? a β)
+        [(equal? a 'β)
          (first-last-in-pairs? xs
                                '((1 2)
                                  (3 2)))]
-        [(equal? a γ)
+        [(equal? a 'γ)
          (first-last-in-pairs? xs
                                '((2 2)))]
-        [(equal? a δ)
+        [(equal? a 'δ)
          (first-last-in-pairs? xs
                                '((2 1)
                                  (2 3)))]
-        [else (error "illegal α, β, γ, δ symbol")
-
-        
-
-;; this is a bit different see we need to generate all possible
-;; binary representation of this expression.
-; nts might need to reverse these in the end.
-;(define (encode-1-3-exp exp)
-;  (map
-;   reverse
-;   (if (equal? '_ (car exp))
-;       (encode-1-3-exp_ (cdr exp) base-encodings)
-;       (encode-1-3-exp_ (cdr exp) (encode-1-3 (car exp))))))
-
-;; we'll need a helper function to build this out...
-;(define (encode-1-3-exp_ exp encodings)
-;  (cond [(empty? exp) encodings] ; if the expression is empty, it has been parsed
-;        [(empty? encodings) '()] ; if this is empty a parse failed somewhere
-;        [(equal? '_ (car exp))
-;                 (encode-1-3-exp_
-;                         (cdr exp)
-;                         (append (map (λ (enc) (cons #t enc)) encodings)
-;                                         (map (λ (enc) (cons #f enc)) encodings)))] ; allows for a wildcard syntax...
-;        [else (encode-1-3-exp_
-;                         (cdr exp)
-;                         (filter (λ (alt)
-;                                   (is-n? (take alt 3) (car exp)))
-;                                 (append (map (λ (enc) (cons #t enc)) encodings)
-;                                         (map (λ (enc) (cons #f enc)) encodings))))]))
-
-
-                    
-; gets encodings for a single 1,2,3 symbol
-;(define (encode-1-3 n)
-; (filter (λ (encoding) (is-n? encoding n))
-;          base-encodings))
-  
-
-;(define (is-valid-1-3? exp)
-;  (empty? (encode-1-3-exp exp)))
-
-
-;;and we can solve for wild cards
-;(define (solve-1-3 exp)
-;  (remove-duplicates
-;   (map parse-1-3-bin (encode-1-3-exp exp))))
+        [else (error "illegal α, β, γ, δ symbol")]))
 
 
 
-;;; α, β, γ, δ
+; encoding
+(define (encode-alpha-delta-token rep)
+  (encode-token rep
+                is-alpha-delta?
+                '(α β γ δ)))
 
-;note: ah! this parse is wrong since it skips a term... I think at least, need to reread
+(define (encode-alpha-delta rep)
+  (encode rep
+          encode-alpha-delta-token
+          3))
 
-; Lacan continues to expand this to another layer of symobls on top of this
-; we can just go ahead and use cond for all the conditions of this
-; all of these mirror what we see for the first part so we can probably
-; refactor this all quite a bit.
+; decoding
+(define (decode-alpha-delta sym-exp)
+  (decode sym-exp is-alpha-delta? '(1 2 3) 3))
 
-;(define (match-option pair-1-3 opts)
-;  (any (map (lambda (opt) (equal? pair-1-3 opt))
-;            opts)))
-;; α
-;
-;(define (is-alpha? pair-1-3)
-;  (match-option pair-1-3 '((1 1)
-;                           (1 3)
-;                           (3 1)
-;                           (3 3))))
-;; γ
-;(define (is-gamma? pair-1-3)
-;  (match-option pair-1-3 '((2 2))))
-;
-;; β
-;(define (is-beta? pair-1-3)
-;  (match-option pair-1-3 '((1 2)
-;                           (3 2))))
-;; δ
-;(define (is-delta? pair-1-3)
-;  (match-option pair-1-3 '((2 1)
-;                           (2 3))))
-;
-;(define base-encodings-1-3 `((1 1)
-;                             (1 2)
-;                             (1 3)
-;                             (2 1)
-;                             (2 2)
-;                             (2 3)
-;                             (3 1)
-;                             (3 2)
-;                             (3 3)))
-;
-;(define (is-sym? pair-1-3 sym)
-;  (cond [(equal? sym 'α) (is-alpha? pair-1-3)]
-;        [(equal? sym 'γ) (is-gamma? pair-1-3)]
-;        [(equal? sym 'β) (is-beta? pair-1-3)]
-;        [(equal? sym 'δ) (is-delta? pair-1-3)]
-;        [else #f]))
-;
-;; this could be cleaned up so much it hurts
-;(define (encode-alpha-delta n)
-;  (filter (λ (encoding) (is-sym? encoding n))
-;          base-encodings-1-3))
-;
-;(define (parse-alpha-delta pair-1-3)
-;   (car (filter (λ (n) (is-sym? pair-1-3 n)) '(α β γ δ))))
-;
-;(define (parse-alpha-delta-1-3 exp-1-3)
-;  (cond [(empty? exp-1-3) '()]
-;        [(< (length exp-1-3) 2) '()]
-;        [else (cons (parse-alpha-delta (take exp-1-3 2))
-;                    (parse-alpha-delta-1-3 (drop exp-1-3 1)))]
-;        ))
-;
-;
-;
-;;; this is a bit different see we need to generate all possible
-;;; binary representation of this expression.
-;; nts might need to reverse these in the end.
-;(define (encode-alpha-delta-exp exp)
-;  (map
-;   reverse
-;   (if (equal? '_ (car exp))
-;       (encode-alpha-delta-exp_ (cdr exp) base-encodings-1-3)
-;       (encode-alpha-delta-exp_ (cdr exp) (encode-alpha-delta (car exp))))))
-;
-;;; we'll need a helper function to build this out...
-;(define (encode-alpha-delta-exp_ exp encodings)
-;  (cond [(empty? exp) encodings] ; if the expression is empty, it has been parsed
-;        [(empty? encodings) '()] ; if this is empty a parse failed somewhere
-;        [(equal? '_ (car exp))
-;                 (encode-alpha-delta-exp_
-;                         (cdr exp)
-;                         ;this part gets more complex
-;                         (append (map (λ (enc) (cons 1 enc)) encodings)
-;                                 (map (λ (enc) (cons 2 enc)) encodings)
-;                                 (map (λ (enc) (cons 3 enc)) encodings)))] 
-;        [else (encode-alpha-delta-exp_
-;                         (cdr exp)
-;                         (filter (λ (alt)
-;                                   (is-sym? (take alt 2) (car exp)))
-;                                (append (map (λ (enc) (cons 1 enc)) encodings)
-;                                        (map (λ (enc) (cons 2 enc)) encodings)
-;                                        (map (λ (enc) (cons 3 enc)) encodings))))]))
-;
-;
-;
-;(define (is-valid-alpha-delta? exp)
-;  (empty? (encode-alpha-delta-exp exp)))
-;
-;
-;(define (solve-alpha-delta exp)
-;  (remove-duplicates
-;   (map parse-alpha-delta-1-3 (encode-alpha-delta-exp exp))))
+(define (solve-alpha-delta exp)
+  (solve exp
+         encode-alpha-delta
+         decode-alpha-delta))
