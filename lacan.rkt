@@ -168,7 +168,8 @@
   (let ([pair (list
                (first triple)
                (last triple))])
-    (or (map (λ (opt) (equal? pair opt)) options))))
+    (foldl (λ (x y) (or x y)) '#f
+           (map (λ (opt) (equal? pair opt)) options))))
 
 (define (is-alpha-delta? xs a)
   (cond [(equal? a 'α)
