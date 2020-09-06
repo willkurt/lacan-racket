@@ -299,7 +299,7 @@ If you've ever watched the series True Detective this may invoke images of Rust'
 
 **Marty Hart:** So what's the point of getting out of bed in the morning?
 
-**Rust Cohle:*** I tell myself I bear witness, but the real answer is that it's obviously my programming. And I lack the constitution for suicide.
+**Rust Cohle:** I tell myself I bear witness, but the real answer is that it's obviously my programming. And I lack the constitution for suicide.
 
 ![What is the relationship between the signifier and our programming?](./images/rust_cohle.jpg){width=300px}
 
