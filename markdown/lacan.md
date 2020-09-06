@@ -2,16 +2,16 @@
 % Will Kurt
 
 
-I was recently reading through an appendix on Jacques Lacan's *Seminar on "The Purloined Letter"* and was surpised to find a discussion of a problem that seemed to fundamentally be a programming exercise. These notes are the result of some exploration I did implementing Lacan's discussion in the [Racket Programming language](https://racket-lang.org/) (a modern dialect of the Scheme programming language for those unfamiliar). This seemed to be quite a perfect fit since Lacan's primary interest is in the role that "signifiers" play in our understanding of the world and Racket is a *symbolic* programming language that focuses on the manipulation of symbols to perform computation.  The full code and original markdown for these notes can be found in [this github repo]()[https://github.com/willkurt/lacan-racket].
+I was recently reading through an appendix on Jacques Lacan's *Seminar on "The Purloined Letter"* and was surpised to find a discussion of a problem that seemed to fundamentally be a programming exercise. These notes are the result of some exploration I did implementing Lacan's discussion in the [Racket Programming language](https://racket-lang.org/) (a modern dialect of the Scheme programming language for those unfamiliar). This seemed to be quite a perfect fit since Lacan's primary interest is in the role that "signifiers" play in our understanding of the world and Racket is a *symbolic* programming language that focuses on the manipulation of symbols to perform computation.  The full code and original markdown for these notes can be found in [this github repo](https://github.com/willkurt/lacan-racket).
 
 ## A quick intro to Lacan
 
-Jacques Lacan's (*Seminar on "The Purloined Letter"*)[https://www.lacan.com/purloined.htm]\* is a lecture that covers many of Lacan's essential themes and is a great introduction to understanding the basics of Lacanian psychology. When abstracted out, many of Lacan's ideas can be reasonably straightforward, however in the original context Lacan takes the audiences on a splendid journey through his thinking that, for the uninitiated, can be a bit confusing. There is an appendix to this Seminar a surprisingly quantitative and technical section in this lecture as printed in *Écrits* under the subsection titled *Introduction* which in fact follows after the transcript of the seminar.
+Jacques Lacan's [*Seminar on "The Purloined Letter"*](https://www.lacan.com/purloined.htm) \* is a lecture that covers many of Lacan's essential themes and is a great introduction to understanding the basics of Lacanian psychology. When abstracted out, many of Lacan's ideas can be reasonably straightforward, however in the original context Lacan takes the audiences on a splendid journey through his thinking that, for the uninitiated, can be a bit confusing. There is an appendix to this Seminar a surprisingly quantitative and technical section in this lecture as printed in *Écrits* under the subsection titled *Introduction* which in fact follows after the transcript of the seminar.
 
 
 \* *note*: that link does not contain the full appendix that is discussed in these notes.
 
-This Seminar focuses on a classic Edgar Allen Poe text, ("The Purloined Letter")[https://poestories.com/read/purloined] which is a mystery centering on a stolen letter. Lacan uses this letter as classic example of the 'primacy of the signified'. "What in the world does that mean!?" you might reasonably ask. Lacan was particularly interested in the different roles that the "signifier" and the "signified" play in our understanding of the world. In general we can think of the *signifier* as the "thing which points to something else" and the *signified* as the "thing pointed at". Take for example this image:
+This Seminar focuses on a classic Edgar Allen Poe text, ["The Purloined Letter"](https://poestories.com/read/purloined) which is a mystery centering on a stolen letter. Lacan uses this letter as classic example of the 'primacy of the signified'. "What in the world does that mean!?" you might reasonably ask. Lacan was particularly interested in the different roles that the "signifier" and the "signified" play in our understanding of the world. In general we can think of the *signifier* as the "thing which points to something else" and the *signified* as the "thing pointed at". Take for example this image:
 
 !["A cat reading Lacan's Écrits"](./images/cat_ecrits.png){width=300px}
 
@@ -31,7 +31,7 @@ Now when I say "male technologist" you likely have a pretty good idea what I mea
 
 This is of course just one tiny example of how often times the signifier is what plays a primal role in our way of interacting with the world. Lacan also points out that there is one very important signifier in our contemporary existence, which is always something with points to something else, and yet nonetheless plays an essential role in our psychology:
 
-"the signifier that most thoroughly annihilates every signifcation--namely, money"
+> "the signifier that most thoroughly annihilates every signifcation--namely, money"
 
 For a bit more exposition on Lacan take a look at my talk on ["The Limits of Probability"](https://www.youtube.com/watch?v=S_dqEgtpgBg).
 
