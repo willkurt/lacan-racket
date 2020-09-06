@@ -7,7 +7,7 @@ The main write up can be viewed on the github page: [https://willkurt.github.io/
 
 The index page is built using Pandoc and can be generated with the following command:
 
-`pandoc ./markdown/lacan.md -f markdown -t html -o index.html`
+`pandoc -s ./markdown/lacan.md -f markdown -t html --metadata-file=./markdown/metadata.yaml --css ./markdown/pandoc.css -o index.html`
 
 
 The original `pandoc.css` file comes from [https://gist.github.com/killercup/5917178#file-pandoc-css](https://gist.github.com/killercup/5917178#file-pandoc-css)
