@@ -5,7 +5,7 @@ Jacques Lacan's *Seminar on "The Purloined Letter"* is a lecture that covers man
 
 This Seminar focuses on a classic Edgar Allen Poe text, "The Purloined Letter" which is a mystery centering on a stolen letter. Lacan uses this letter as classic example of the 'primacy of the signified'. "What in the world does that mean!?" you might reasonably ask. Lacan was particularly interested in the different roles that the "signifier" and the "signified" play in our understanding of the world. In general we can think of the *signifier* as the "thing which points to something else" and the *signified* as the "thing pointed at". Take for example this image:
 
-[conan image]
+!["A cat reading Lacan's Écrits"](./images/cat_ecrits.png){width=300px}
 
 We would say that there is a "cat" in this image. The word "cat" would be the signifier and the cat itself would be the signified. Typically we tend to think of the *signfied* at the real thing, but Lacan was interested in how incredibly important the signfier itself is in our understanding of the world. He proclaims in the Seminar:
 
@@ -25,7 +25,7 @@ To demonstrate just how powerful pure symobls can be Lacan give an example of a 
 
 ### Freud, the death drive and the repetition compulsion
 
-Lacan starts what is essential an appendix to the Seminar by discussing Freud's controversial writing *Beyond the Pleasure Principle*. In this text Freud struggles with the question of the *repetition compulsion* (or automatism) in which patients repeatedly return to thinking about tramautic events in their lifes.Freud, typically explaining most of our behavior in terms libidinal desires, that is pleasure seeking, sexual urges. For Freud most of the complexity of human psychology is the way we resist these desires as part of our everyday lifes. The trouble is that if our behavior driven exclusively by a pleasure instinct wh  would anyone be compelled to revisit painful experiences over and over again? Freud's theoretical solution to this problem to the establishment of the idea of the 'death drive'. Freud argues that human behavior is in fact driven by the conflict between our libido and this death drive (Eros and Thanatos). Understandably even Freud's most ardent followers.
+Lacan starts what is essential an appendix to the Seminar by discussing Freud's controversial writing *Beyond the Pleasure Principle*. In this text Freud struggles with the question of the *repetition compulsion* (or automatism) in which patients repeatedly return to thinking about tramautic events in their lifes. Freud, typically explaining most of our behavior in terms libidinal desires, that is pleasure seeking, sexual urges. For Freud most of the complexity of human psychology is the way we resist these desires as part of our everyday lifes. The trouble is that if our behavior driven exclusively by a pleasure instinct wh  would anyone be compelled to revisit painful experiences over and over again? Freud's theoretical solution to this problem to the establishment of the idea of the 'death drive'. Freud argues that human behavior is in fact driven by the conflict between our libido and this death drive (Eros and Thanatos). Understandably even Freud's most ardent followers.
 
 ### Repition compulsion explain through the symbolic chain
 
