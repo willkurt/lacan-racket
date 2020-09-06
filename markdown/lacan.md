@@ -1,9 +1,17 @@
-# Programming Lacan's Symoblic Chain using Racket
+% Programming Lacan's Symoblic Chain using Racket
+% Will Kurt
 
-Jacques Lacan's *Seminar on "The Purloined Letter"* is a lecture that covers many of Lacan's essential themes and is a great introduction to understanding the basics of Lacanian psychology. When abstracted out, many of Lacan's ideas can be reasonably straightforward, however in the original context Lacan takes the audiences on a splendid journey through his thinking that, for the uninitiated, can be a bit confusing. These notes cover a surprisingly quantitative and technical section in this lecture as printed in *Écrits* under the subsection titled *Introduction* which in fact follows after the transcript of the seminar.
+
+I was recently reading through an appendix on Jacques Lacan's *Seminar on "The Purloined Letter"* and was surpised to find a discussion of a problem that seemed to fundamentally be a programming exercise. These notes are the result of some exploration I did implementing Lacan's discussion in the [Racket Programming language](https://racket-lang.org/) (a modern dialect of the Scheme programming language for those unfamiliar). This seemed to be quite a perfect fit since Lacan's primary interest is in the role that "signifiers" play in our understanding of the world and Racket is a *symbolic* programming language that focuses on the manipulation of symbols to perform computation.  The full code and original markdown for these notes can be found in [this github repo]()[https://github.com/willkurt/lacan-racket].
+
+## A quick intro to Lacan
+
+Jacques Lacan's (*Seminar on "The Purloined Letter"*)[https://www.lacan.com/purloined.htm]\* is a lecture that covers many of Lacan's essential themes and is a great introduction to understanding the basics of Lacanian psychology. When abstracted out, many of Lacan's ideas can be reasonably straightforward, however in the original context Lacan takes the audiences on a splendid journey through his thinking that, for the uninitiated, can be a bit confusing. There is an appendix to this Seminar a surprisingly quantitative and technical section in this lecture as printed in *Écrits* under the subsection titled *Introduction* which in fact follows after the transcript of the seminar.
 
 
-This Seminar focuses on a classic Edgar Allen Poe text, "The Purloined Letter" which is a mystery centering on a stolen letter. Lacan uses this letter as classic example of the 'primacy of the signified'. "What in the world does that mean!?" you might reasonably ask. Lacan was particularly interested in the different roles that the "signifier" and the "signified" play in our understanding of the world. In general we can think of the *signifier* as the "thing which points to something else" and the *signified* as the "thing pointed at". Take for example this image:
+\* *note*: that link does not contain the full appendix that is discussed in these notes.
+
+This Seminar focuses on a classic Edgar Allen Poe text, ("The Purloined Letter")[https://poestories.com/read/purloined] which is a mystery centering on a stolen letter. Lacan uses this letter as classic example of the 'primacy of the signified'. "What in the world does that mean!?" you might reasonably ask. Lacan was particularly interested in the different roles that the "signifier" and the "signified" play in our understanding of the world. In general we can think of the *signifier* as the "thing which points to something else" and the *signified* as the "thing pointed at". Take for example this image:
 
 !["A cat reading Lacan's Écrits"](./images/cat_ecrits.png){width=300px}
 
@@ -11,11 +19,15 @@ We would say that there is a "cat" in this image. The word "cat" would be the si
 
 >  "I teach that the unconscious is the fact that man is inhabited by the signifier"
 
-For Lacan it is these signifiers, these symbols of things, that are in fact the reality of our unconcious life. That is we operate primarily in terms of symbols, not the least of which is language itself. As an example of the role these signifigers play, consider a statement such as "I am a male technologist". It turns our there in a emoji specifically for this very idea:
+In the original Poe story is about a stolen letter and a detectives quest to return the letter. Lacan uses this stolen letter an example of the power of the signifier. Even though the entire story is driven by this letter the reader never knows what the actual contents of the letter are. Lacan points out that not only do we not know, we don't need to. The letter itself as a signifier is able to create all the drama and complexity this mystery needs.
+
+### The primacy of the signifier
+
+For Lacan it is these signifiers, these symbols of things, that are in fact the reality of our unconcious life. That is we operate primarily in terms of symbols, not the least of which is language itself. As an example of the role these signifigers play, consider a statement such as "I am a male technologist". It turns out there in a emoji specifically for this very idea:
 
 !["Emoji are a great representation of the signifier"](./images/man_technologist.png){width=300px}
 
-Now when I say "male technologist" you likely have a pretty good idea what I mean, but if we pick apart what these words mean it we quickly find it is very tricky to point to what exactly I am signifying. For starters what does it mean to say that I am "male"? We can see this as expression of biological sex, but it also entrails notions of gender. What does it mean to be a "man"? You might be tempted to quickly make some statement about the number of X choromosomes, but even if that works for one technical definition of "male" it clearly doesn't do enough to explain it in all or even most social occasions. The more we explore "maleness" the more we realize that being "male" is more a signifier that a signified, it is like an emoji that we can't quite pin down exactly what it points to.
+Now when I say "male technologist" you likely have a pretty good idea what I mean, but if we pick apart what these words mean we quickly find it is very tricky to point to what exactly I am signifying. For starters what does it mean to say that I am "male"? We can see this as expression of biological sex, but it also entrails notions of gender. What does it mean to be a "man"? You might be tempted to quickly make some statement about the number of X choromosomes, but even if that works for one technical definition of "male" it clearly doesn't do enough to explain it in all or even most social occasions. The more we explore "maleness" the more we realize that being "male" is more a signifier that a signified, it is like an emoji that we can't quite pin down exactly what it points to.
 
 This is of course just one tiny example of how often times the signifier is what plays a primal role in our way of interacting with the world. Lacan also points out that there is one very important signifier in our contemporary existence, which is always something with points to something else, and yet nonetheless plays an essential role in our psychology:
 
@@ -23,15 +35,21 @@ This is of course just one tiny example of how often times the signifier is what
 
 For a bit more exposition on Lacan take a look at my talk on ["The Limits of Probability"](https://www.youtube.com/watch?v=S_dqEgtpgBg).
 
-To demonstrate just how powerful pure symobls can be Lacan give an example of a very simple symbol language which nonetheless has some very interesting properities. Given that Racket is a programming language focused specifically on symbol manipulation I thought it would be a really fun exercise to implement this specific example fo Lacan's reasoning in Racket! 
+## Lacan and Racket
 
-## Freud, the death drive and the repetition compulsion
+To demonstrate just how powerful pure symobls can be Lacan give an example of a very simple symbol language which nonetheless has some very interesting properities. Given that Racket is a programming language focused specifically on symbol manipulation I thought it would be a really fun exercise to implement this specific example fo Lacan's reasoning in Racket!
 
-Lacan starts what is essential an appendix to the Seminar by discussing Freud's controversial writing *Beyond the Pleasure Principle*. In this text Freud struggles with the question of the *repetition compulsion* (or automatism) in which patients repeatedly return to thinking about tramautic events in their lifes. Freud typical explains most of our behavior in terms libidinal desires, that is pleasure seeking, sexual urges. For Freud most of the complexity of human psychology is the way we resist these desires as part of our everyday lifes. The trouble is that if our behavior is driven exclusively by a pleasure instinct why would anyone be compelled to revisit painful experiences over and over again? Freud's theoretical solution to this problem is the establishment of the idea of the 'death drive'. Freud argues that human behavior is in fact driven by the conflict between our libido and this death drive (Eros and Thanatos). Understandably even Freud's most ardent followers found this explaination a little difficult to digest.
+Racket is in the family of Lisp programming languages. One dominant feature of most Lisp dialects is that they focus on the programmer performing computation strictly through symbol manipulation.  The allows the programmer to treat even programs themselves as inputs to other programs, which leads to some very powerful programming abstractions.
+
+Given that Racket is one of the best examples of a contemporary symbolic programming language this is a great tool to explore in more detail the problem that Lacan is discussion. Implementing Lacan in Racket also makes is arguments much more clear and can help make some logic easier to reason about.
+
+### Freud, the death drive and the repetition compulsion
+
+Lacan starts what is essential an appendix to the Seminar by discussing Freud's controversial writing *Beyond the Pleasure Principle*. In this text Freud struggles with the question of the *repetition compulsion* (or automatism) in which patients repeatedly return to thinking about tramautic events in their lifes. Freud typically explains most of our behavior in terms libidinal desires, that is pleasure seeking, sexual urges. For Freud most of the complexity of human psychology is the way we resist these desires as part of our everyday lifes. The trouble is that if our behavior is driven exclusively by a pleasure instinct why would anyone be compelled to revisit painful experiences over and over again? Freud's theoretical solution to this problem is the establishment of the idea of the 'death drive'. Freud argues that human behavior is in fact driven by the conflict between our libido and this death drive (Eros and Thanatos). Understandably even Freud's most ardent followers found this explaination a little difficult to digest.
 
 ### Repition compulsion explained through the symbolic chain
 
-Lacan's response is that while Freud's solution is easily dismissed, the problem he describes does need some explaination. Lacan argues that the *autonomy of the symbolic* is enough to explain the repetition compulsion. What in the world is the "autonomy of the symbolic?" Lacan wants to show us that mere symbols and rules for creating those symbols can contain their own logic which can cause repitition without needing to refer to any more complicated system. From a standpoint of modern programming this is not at all surprising. Anyone who has writen a program has basically used symbols that have no intrinsic meaning and used the logic of these symobls create predictable behavior. This is why this is a particularly fun part of Lacan to implement in code!
+Lacan's response is that while Freud's solution is easily dismissed, the problem he describes does need some exploration. Lacan argues that the *autonomy of the symbolic* is enough to explain the repetition compulsion. What in the world is the "autonomy of the symbolic?" Lacan wants to show us that mere symbols and rules for creating those symbols can contain their own logic which can cause repitition without needing to refer to any more complicated system. From a standpoint of modern programming this is not at all surprising. Anyone who has writen a program has basically used symbols that have no intrinsic meaning and used the logic of these symobls create predictable behavior. This is why this is a particularly fun part of Lacan to implement in code!
 
 To demonstrate this Lacan develops a very simple grammar from symobic manipulation to demonstrate the emergent rules that come from this. For Lacan this shows that we don't need complex ideas like the death drive to explain the compulsion to repeat: symbols themselves can cause this. Lacan starts with two symbols + and - representing, abstractly, presents or absence respectively. In Racket we can represent a list of these symbosl likes this:
 
@@ -41,7 +59,7 @@ To demonstrate this Lacan develops a very simple grammar from symobic manipulati
 
 He then creates some simple rules that can can be used to transform a sequence of three of these symbols into three new symbols `'(1 2 3)`.
 
-To demonstrate Lacan's rules we'll implement series of racket functions that check whether or not a given string of `+` and `-` maps to the target symbol. Lacan, being Lacan, expresses these symbols in a more indirect way, but the following definitions will suffice to showing Lacan's larger point.
+To demonstrate Lacan's rules we'll implement series of racket functions that check whether or not a given string of `+` and `-` maps to the target symbol. Lacan, being Lacan, expresses these symbols in a more indirect way, but the following definitions will suffice to show Lacan's larger point.
 
 The symbol 1 is defined as either `+++` or `---`
 
@@ -72,7 +90,7 @@ And the symbol 3 is `+-+` or `-+-`
 ```
 
 
-The next step is to imagine a string of these + and - base representations and how they would be translated. To be clear, if we have 3 +/- symbols we can generate  a single `1`,`2`, or `3` symbol, and if we have four `+`/`-` we can generate two symbols. To make this more clear (and allow you to play with this process) we will demonstrate this in Racket. Our encoder takes the list in 3 at a time and then generates new symbols from the set `1` `2` `3` based on the rules we have. In racket we have implemented a function named `encode-1-3` which takes a +/- representation and encodes it as a 1-3 symbol representation.
+The next step is to imagine a string of these `+` and `-` base representations and how they would be translated. To be clear, if we have 3 {`+`,`-`} symbols we can generate  a single `1`,`2`, or `3` symbol, and if we have four {`+`,`-`} we can generate two symbols. To make this more clear (and allow you to play with this process) we will demonstrate this in Racket. Our encoder takes the list in 3 at a time and then generates new symbols from the set {`1`,`2`, `3`} based on the rules we have. In racket we have implemented a function named `encode-1-3` which takes a {`+`,`-`} representation and encodes it as a 1-3 symbol representation.
 
 
 ```
@@ -87,7 +105,7 @@ The next step is to imagine a string of these + and - base representations and h
 > 
 ```
 
-At this point it's worth noting that every string of `+`/`-` symbols can be encoded in exactly one sequence of {`1`,`2`,`3`} symbols. Something interesting happens when we try to go the other way. Just looking at our original symbol definitions we know that there are more than one possible encoding for our symbols. We'll use a `decode-1-3` function do see how we can decode these:
+At this point it's worth noting that every string of {`+`,`-`} symbols can be encoded in exactly one sequence of {`1`,`2`,`3`} symbols. Something interesting happens when we try to go the other way. Just looking at our original symbol definitions we know that there are more than one possible encoding for our symbols. We'll use a `decode-1-3` function do see how we can decode these:
 
 ```
 > (decode-1-3 '(1))
@@ -117,7 +135,7 @@ What is particularly interesting, especially to Lacan, is that our relatively si
 
 That is because, try as you might, you cannot find a pattern of {`+`,`-`} that encodes this sequence!
 
-To explore what chains are possible there is a `solve-1-3` function that will allow us to use `_` as a wildcare in our chains and will return all possible chains that satistify the other constraints:
+To explore what chains are possible there is a `solve-1-3` function that will allow us to use `_` as a wildcard in our chains and will return all possible chains that satistify the other constraints:
 
 ```
 > (solve-1-3 '(1 _))
@@ -134,9 +152,9 @@ Lacan uses the following diagram to represent the possible transistions:
 ![Lacan's diagram should immediately invoke Finite State Machines and Markov Chains](./images/1-3_network.png){width=300px}
 
 
-What Lacan is demonstrating is that "the series *will remember*" some of the information it has. And in case you're curious Lacan does cite by Poincare and Markov as inspiring this thoughts on this process. Clearly what we have here is a Markov Chain!
+What Lacan is demonstrating is that "the series *will remember*" some of the information it has. And in case you're curious Lacan does cite both Poincare and Markov as inspiring this thoughts on this process. Clearly what we have here is a Markov Chain can be modeled as [a Markov chain](https://www.countbayesie.com/blog/2015/11/21/the-black-friday-puzzle-understanding-markov-chains). Of course computer scientist might recongnize this as a [Finite-State Automata/Machine](https://en.wikipedia.org/wiki/Finite-state_machine), which makes Lacan's claim of "remebering" a bit challenging is we usually don't think of FSM having any 'memory' at all (A pushdown automata is usually our simplest model of computation with memory). This observation also means that are a variety of other ways we could implment Lacan's example!
 
-So what does this have to do with Freud and the repeatition compulsion?
+So what does this have to do with Freud and the repeatition compulsion? What Lacan is showing us is that we can start to see this 'repetition automatism' as nothing different than this FSM we're building just by manipulating symbols.
 
 Lacan continues to demostrate the power of symbolic chain by builiding another one on top of the {1,2,3} symbols using { `α`, `β`, `γ`, `δ`}. Each of these symbols is encoded as a triplet of the {`1`,`2`,`3`} symbols using the following rules based on the first and last symbols in the triplet.
 
@@ -221,14 +239,15 @@ There are once again many possible decodings of our  α-δ symbols into 1-3 trip
   (3 2 2 1 1 1))
 ```
 
-And of course from all of this we can build another solver, `solve-alpha-delta`, which we will need to understand more deeply the next part of Lacan's discussion.
+And of course from all of this we can build another solver, `solve-alpha-delta`, which we will need to more deepl understandy the next part of Lacan's discussion.
 
+Lacan goes on to describe we he calls the "Δ (delta) distribution". In this delta distrbution section Lacan want's to show us how symbols early on can determine the future symbols we will see, even when there is a lot of flexibility in the middle. He presents this visualization of this distribution:
 
-In his Delta distrbution section Lacan want's to show us how symbols early on can determine the future symbols we will see, even when there is a lot of flexibility in the middle
+![The Delta distribution](./images/delta_distribution.png){width=400px}
 
+What Lacan is attempting to visualize here is that given known starting symbols we can have in step 1, any symbol is possible in step 2, but we still end up restricting the possible symbols in step 3.
 
-
-For example look at both α and δ as starting points in a three symbol chain.
+If find this much easier to see when we play wiht this example in Racket. For example look at both α and δ as starting points in a three symbol chain.
 
 
 ```
@@ -293,7 +312,8 @@ For me this was an interesting case where Lacan's notation wasn't entirely clear
 
 ## Our symbolic programming
 
-Lacan never makes the explicit connection between programming and his symbolic language, but it leads to an interesting observation. Lacan's main argument here (if we can say that Lacan ever really makes an argument) is that Freud's delemea doesn't need the "Death Drive". We can see that if our mind is driven by symbols then we can clearly explain the repetition of events, tragic or not, by the rules that force symbols to behave in a certain way. From the perspective of a programmer it seems that Lacan is stating something that almost seems obivous in retrosepct: we can view ourselves as programmed by these symbols.
+Lacan never makes the explicit connection between programming and his symbolic language, but it leads to an interesting observation. Lacan's main argument here (if we can say that Lacan ever really makes an argument) is that Freud's dilemma doesn't need the "Death Drive". We can see that if our mind is driven by symbols (or signifiers) then we can clearly explain the repetition of events, tragic or not, by the rules that force symbols to behave in a certain way. From the perspective of a programmer it seems that Lacan is stating something that almost seems obivous in retrosepct: we can view ourselves as programmed by these symbols.
+
 
 If you've ever watched the series True Detective this may invoke images of Rust's description of why he continues on living despite his deep pessism regarding existence:
 
@@ -304,3 +324,7 @@ If you've ever watched the series True Detective this may invoke images of Rust'
 ![What is the relationship between the signifier and our programming?](./images/rust_cohle.jpg){width=300px}
 
 What we've worked out here is a round about way of showing how Lacan's real point is that the signifiers which provide the foundation of our unconcious are, in there own way, our programming.
+
+Viewing the signifiers as the programming language of the mind is not too far off from the way we start to understand the signifier in it's role in dominant ideologies that shape our culture, behavior and overall view of relatity. In a somewhat suprisingly way we can walk away with a new view of Lacan as seeing our minds as closer to Lisp programs, manupulating symbols to create a computation that is our reality.
+
+
