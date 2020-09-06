@@ -1,0 +1,199 @@
+<h1 id="programming-lacans-symoblic-chain-using-racket">Programming Lacan’s Symoblic Chain using Racket</h1>
+<p>Jacques Lacan’s <em>Seminar on “The Purloined Letter”</em> is a lecture that covers many of Lacan’s essential themes and is a great introduction to understanding the basics of Lacanian psychology. When abstracted out, many of Lacan’s ideas can be reasonably straightforward, however in the original context Lacan takes the audiences on a splendid journey through his thinking that, for the uninitiated, can be a bit confusing. These notes cover a surprisingly quantitative and technical section in this lecture as printed in <em>Écrits</em> under the subsection titled <em>Introduction</em> which in fact follows after the transcript of the seminar.</p>
+<p>This Seminar focuses on a classic Edgar Allen Poe text, “The Purloined Letter” which is a mystery centering on a stolen letter. Lacan uses this letter as classic example of the ‘primacy of the signified’. “What in the world does that mean!?” you might reasonably ask. Lacan was particularly interested in the different roles that the “signifier” and the “signified” play in our understanding of the world. In general we can think of the <em>signifier</em> as the “thing which points to something else” and the <em>signified</em> as the “thing pointed at”. Take for example this image:</p>
+<figure>
+<img src="./images/cat_ecrits.png" width="300" alt="" /><figcaption>“A cat reading Lacan’s Écrits”</figcaption>
+</figure>
+<p>We would say that there is a “cat” in this image. The word “cat” would be the signifier and the cat itself would be the signified. Typically we tend to think of the <em>signfied</em> at the real thing, but Lacan was interested in how incredibly important the signfier itself is in our understanding of the world. He proclaims in the Seminar:</p>
+<blockquote>
+<p>“I teach that the unconscious is the fact that man is inhabited by the signifier”</p>
+</blockquote>
+<p>For Lacan it is these signifiers, these symbols of things, that are in fact the reality of our unconcious life. That is we operate primarily in terms of symbols, not the least of which is language itself. As an example of the role these signifigers play, consider a statement such as “I am a male technologist”. It turns our there in a emoji specifically for this very idea:</p>
+<figure>
+<img src="./images/man_technologist.png" width="300" alt="" /><figcaption>“Emoji are a great representation of the signifier”</figcaption>
+</figure>
+<p>Now when I say “male technologist” you likely have a pretty good idea what I mean, but if we pick apart what these words mean it we quickly find it is very tricky to point to what exactly I am signifying. For starters what does it mean to say that I am “male”? We can see this as expression of biological sex, but it also entrails notions of gender. What does it mean to be a “man”? You might be tempted to quickly make some statement about the number of X choromosomes, but even if that works for one technical definition of “male” it clearly doesn’t do enough to explain it in all or even most social occasions. The more we explore “maleness” the more we realize that being “male” is more a signifier that a signified, it is like an emoji that we can’t quite pin down exactly what it points to.</p>
+<p>This is of course just one tiny example of how often times the signifier is what plays a primal role in our way of interacting with the world. Lacan also points out that there is one very important signifier in our contemporary existence, which is always something with points to something else, and yet nonetheless plays an essential role in our psychology:</p>
+<p>“the signifier that most thoroughly annihilates every signifcation–namely, money”</p>
+<p>For a bit more exposition on Lacan take a look at my talk on <a href="https://www.youtube.com/watch?v=S_dqEgtpgBg">“The Limits of Probability”</a>.</p>
+<p>To demonstrate just how powerful pure symobls can be Lacan give an example of a very simple symbol language which nonetheless has some very interesting properities. Given that Racket is a programming language focused specifically on symbol manipulation I thought it would be a really fun exercise to implement this specific example fo Lacan’s reasoning in Racket!</p>
+<h2 id="freud-the-death-drive-and-the-repetition-compulsion">Freud, the death drive and the repetition compulsion</h2>
+<p>Lacan starts what is essential an appendix to the Seminar by discussing Freud’s controversial writing <em>Beyond the Pleasure Principle</em>. In this text Freud struggles with the question of the <em>repetition compulsion</em> (or automatism) in which patients repeatedly return to thinking about tramautic events in their lifes. Freud typical explains most of our behavior in terms libidinal desires, that is pleasure seeking, sexual urges. For Freud most of the complexity of human psychology is the way we resist these desires as part of our everyday lifes. The trouble is that if our behavior is driven exclusively by a pleasure instinct why would anyone be compelled to revisit painful experiences over and over again? Freud’s theoretical solution to this problem is the establishment of the idea of the ‘death drive’. Freud argues that human behavior is in fact driven by the conflict between our libido and this death drive (Eros and Thanatos). Understandably even Freud’s most ardent followers found this explaination a little difficult to digest.</p>
+<h3 id="repition-compulsion-explained-through-the-symbolic-chain">Repition compulsion explained through the symbolic chain</h3>
+<p>Lacan’s response is that while Freud’s solution is easily dismissed, the problem he describes does need some explaination. Lacan argues that the <em>autonomy of the symbolic</em> is enough to explain the repetition compulsion. What in the world is the “autonomy of the symbolic?” Lacan wants to show us that mere symbols and rules for creating those symbols can contain their own logic which can cause repitition without needing to refer to any more complicated system. From a standpoint of modern programming this is not at all surprising. Anyone who has writen a program has basically used symbols that have no intrinsic meaning and used the logic of these symobls create predictable behavior. This is why this is a particularly fun part of Lacan to implement in code!</p>
+<p>To demonstrate this Lacan develops a very simple grammar from symobic manipulation to demonstrate the emergent rules that come from this. For Lacan this shows that we don’t need complex ideas like the death drive to explain the compulsion to repeat: symbols themselves can cause this. Lacan starts with two symbols + and - representing, abstractly, presents or absence respectively. In Racket we can represent a list of these symbosl likes this:</p>
+<pre><code>&#39;( + + - + + - - - +)</code></pre>
+<p>He then creates some simple rules that can can be used to transform a sequence of three of these symbols into three new symbols <code>'(1 2 3)</code>.</p>
+<p>To demonstrate Lacan’s rules we’ll implement series of racket functions that check whether or not a given string of <code>+</code> and <code>-</code> maps to the target symbol. Lacan, being Lacan, expresses these symbols in a more indirect way, but the following definitions will suffice to showing Lacan’s larger point.</p>
+<p>The symbol 1 is defined as either <code>+++</code> or <code>---</code></p>
+<pre><code>(define (is-one? xs)
+  (or (equal? xs &#39;(+ + +))
+      (equal? xs &#39;(- - -))))
+</code></pre>
+<p>The symbol 2 can be <code>+--</code>, <code>-++</code>, <code>++-</code>, <code>--+</code></p>
+<pre><code>(define (is-two? xs)
+  (or (equal? xs &#39;(+ - -))
+      (equal? xs &#39;(- + +))
+      (equal? xs &#39;(+ + -))
+      (equal? xs &#39;(- - +))))</code></pre>
+<p>And the symbol 3 is <code>+-+</code> or <code>-+-</code></p>
+<pre><code>(define (is-three? xs)
+   (or (equal? xs &#39;(+ - +))
+       (equal? xs &#39;(- + -))))</code></pre>
+<p>The next step is to imagine a string of these + and - base representations and how they would be translated. To be clear, if we have 3 +/- symbols we can generate a single <code>1</code>,<code>2</code>, or <code>3</code> symbol, and if we have four <code>+</code>/<code>-</code> we can generate two symbols. To make this more clear (and allow you to play with this process) we will demonstrate this in Racket. Our encoder takes the list in 3 at a time and then generates new symbols from the set <code>1</code> <code>2</code> <code>3</code> based on the rules we have. In racket we have implemented a function named <code>encode-1-3</code> which takes a +/- representation and encodes it as a 1-3 symbol representation.</p>
+<pre><code>&gt; (encode-1-3 &#39;(+ + +))
+&#39;(1)
+&gt; (encode-1-3 &#39;(+ + + -))
+&#39;(1 2)
+&gt; (encode-1-3 &#39;(+ + + - -))
+&#39;(1 2 2)
+&gt; (encode-1-3 &#39;(+ + + - - -))
+&#39;(1 2 2 1)
+&gt; </code></pre>
+<p>At this point it’s worth noting that every string of <code>+</code>/<code>-</code> symbols can be encoded in exactly one sequence of {<code>1</code>,<code>2</code>,<code>3</code>} symbols. Something interesting happens when we try to go the other way. Just looking at our original symbol definitions we know that there are more than one possible encoding for our symbols. We’ll use a <code>decode-1-3</code> function do see how we can decode these:</p>
+<pre><code>&gt; (decode-1-3 &#39;(1))
+&#39;((- - -) (+ + +))
+&gt; </code></pre>
+<p>We can also see our more complex chains can be decoded:</p>
+<pre><code>&gt; (decode-1-3 &#39;(1 2 3))
+&#39;((- - - + -) (+ + + - +))
+&gt; (decode-1-3 &#39;(2 2 2))
+&#39;((- + + - -) (- - + + -) (+ + - - +) (+ - - + +))
+&gt; (decode-1-3 &#39;(2 3 2))
+&#39;((- - + - -) (+ + - + +))
+&gt; </code></pre>
+<p>What is particularly interesting, especially to Lacan, is that our relatively simple encoding rules mean that certain 1-3 symbolic combinations cannot be decoded, and therefore cannot exist in our simple symbolic chains. For example if you try to make a 1 2 1 3 chain you’ll see that the decoder returns and empty list:</p>
+<pre><code>&gt; (decode-1-3 &#39;(1 2 1 3))
+&#39;()
+</code></pre>
+<p>That is because, try as you might, you cannot find a pattern of {<code>+</code>,<code>-</code>} that encodes this sequence!</p>
+<p>To explore what chains are possible there is a <code>solve-1-3</code> function that will allow us to use <code>_</code> as a wildcare in our chains and will return all possible chains that satistify the other constraints:</p>
+<pre><code>&gt; (solve-1-3 &#39;(1 _))
+&#39;((1 1) (1 2))
+&gt; (solve-1-3 &#39;(1 2 _))
+&#39;((1 2 2) (1 2 3))
+&gt; (solve-1-3 &#39;(1 2 _ _ _))
+&#39;((1 2 2 1 1) (1 2 3 2 1) (1 2 3 3 2) (1 2 2 2 2) (1 2 2 2 3) (1 2 3 3 3) (1 2 3 2 2) (1 2 2 1 2))
+</code></pre>
+<p>Lacan uses the following diagram to represent the possible transistions:</p>
+<figure>
+<img src="./images/1-3_network.png" width="300" alt="" /><figcaption>Lacan’s diagram should immediately invoke Finite State Machines and Markov Chains</figcaption>
+</figure>
+<p>What Lacan is demonstrating is that “the series <em>will remember</em>” some of the information it has. And in case you’re curious Lacan does cite by Poincare and Markov as inspiring this thoughts on this process. Clearly what we have here is a Markov Chain!</p>
+<p>So what does this have to do with Freud and the repeatition compulsion?</p>
+<p>Lacan continues to demostrate the power of symbolic chain by builiding another one on top of the {1,2,3} symbols using { <code>α</code>, <code>β</code>, <code>γ</code>, <code>δ</code>}. Each of these symbols is encoded as a triplet of the {<code>1</code>,<code>2</code>,<code>3</code>} symbols using the following rules based on the first and last symbols in the triplet.</p>
+<p>Here are the rules in Scheme</p>
+<pre><code>(define (is-alpha-delta? xs a)
+  (cond [(equal? a &#39;α)
+         (first-last-in-pairs? xs
+                               &#39;((1 1)
+                                 (3 3)
+                                 (1 3)
+                                 (3 1)))]
+        [(equal? a &#39;β)
+         (first-last-in-pairs? xs
+                               &#39;((1 2)
+                                 (3 2)))]
+        [(equal? a &#39;γ)
+         (first-last-in-pairs? xs
+                               &#39;((2 2)))]
+        [(equal? a &#39;δ)
+         (first-last-in-pairs? xs
+                               &#39;((2 1)
+                                 (2 3)))]
+        [else (error &quot;illegal α, β, γ, δ symbol&quot;)]))</code></pre>
+<p>We this rules we can created yet another encoder, <code>encode-alpha-delta</code>, that will encode sequences of α-δ symbols. Here are some examples:</p>
+<pre><code>&gt; (encode-alpha-delta &#39;(1 2 3))
+&#39;(α)
+&gt; (encode-alpha-delta &#39;(1 2 2))
+&#39;(β)
+&gt; (encode-alpha-delta &#39;(2 1 2))
+&#39;(γ)
+&gt; (encode-alpha-delta &#39;(2 1 1))
+&#39;(δ)
+&gt; (encode-alpha-delta &#39;(2 1 1 1 1))
+&#39;(δ α α)
+&gt; (encode-alpha-delta &#39;(1 2 3 1 2 3))
+&#39;(α δ β α)
+&gt; (encode-alpha-delta &#39;(1 2 3 3 2 1))
+&#39;(α δ β α)
+&gt; (encode-alpha-delta &#39;(1 2 3 3 1 1))
+&#39;(α δ α α)</code></pre>
+<p>If we want we can even combine these two encoders to go straight from our {<code>+</code>,<code>-</code>} representation all the way to α-δ</p>
+<pre><code>&gt; (encode-alpha-delta (encode-1-3 &#39;(+ + + - - -)))
+&#39;(β δ)
+&gt; (encode-alpha-delta (encode-1-3 &#39;(+ + + - - - + + - +)))
+&#39;(β δ γ β γ δ)</code></pre>
+<p>There are once again many possible decodings of our α-δ symbols into 1-3 triplets:</p>
+<pre><code>&gt; (decode-alpha-delta &#39;(β δ))
+&#39;((1 2 2 3) (3 2 2 3) (1 2 2 1) (3 2 2 1))
+&gt; (decode-alpha-delta &#39;(β δ δ))
+&#39;((1 2 2 3 3) (3 2 2 3 3) (1 2 2 1 3) (3 2 2 1 3) (1 2 2 3 1) (3 2 2 3 1) (1 2 2 1 1) (3 2 2 1 1))
+&gt; (decode-alpha-delta &#39;(β δ δ α))
+&#39;((1 2 2 3 3 3)
+  (3 2 2 3 3 3)
+  (1 2 2 1 3 3)
+  (3 2 2 1 3 3)
+  (1 2 2 3 1 3)
+  (3 2 2 3 1 3)
+  (1 2 2 1 1 3)
+  (3 2 2 1 1 3)
+  (1 2 2 3 3 1)
+  (3 2 2 3 3 1)
+  (1 2 2 1 3 1)
+  (3 2 2 1 3 1)
+  (1 2 2 3 1 1)
+  (3 2 2 3 1 1)
+  (1 2 2 1 1 1)
+  (3 2 2 1 1 1))</code></pre>
+<p>And of course from all of this we can build another solver, <code>solve-alpha-delta</code>, which we will need to understand more deeply the next part of Lacan’s discussion.</p>
+<p>In his Delta distrbution section Lacan want’s to show us how symbols early on can determine the future symbols we will see, even when there is a lot of flexibility in the middle</p>
+<p>For example look at both α and δ as starting points in a three symbol chain.</p>
+<pre><code>&gt; (solve-alpha-delta &#39;(α _ _))
+&#39;((α α α) (α δ α) (α β α) (α γ α) (α α β) (α δ β) (α β β) (α γ β))
+&gt; (solve-alpha-delta &#39;(δ _ _))
+&#39;((δ α α) (δ δ α) (δ β α) (δ γ α) (δ α β) (δ δ β) (δ β β) (δ γ β))</code></pre>
+<p>At time 1 if we start with either of these, all symbols are possible at step 2, but only α and β are possible for step 3.</p>
+<p>A similar pattern emerges when we look at γ and β as starting points:</p>
+<pre><code>&gt; (solve-alpha-delta &#39;(β _ _))
+&#39;((β α δ) (β δ δ) (β β δ) (β γ δ) (β α γ) (β δ γ) (β β γ) (β γ γ))
+&gt; (solve-alpha-delta &#39;(γ _ _))
+&#39;((γ α δ) (γ δ δ) (γ β δ) (γ γ δ) (γ α γ) (γ δ γ) (γ β γ) (γ γ γ))</code></pre>
+<p>Given these two symbols in step 1, any symbol is possible in step 2 but only γ and δ are possible at step 3.</p>
+<p>Lacan continues by showing two, somewhat confusing tables show which symbols are impossible provided we know the 1st and 4th symbol in a change. Here is his image for reference:</p>
+<figure>
+<img src="./images/omega_table.png" width="400" alt="" /><figcaption>The Omega and O tables</figcaption>
+</figure>
+<p>For me it was not entirely obvious what Lacan was trying to show here, but once we run this in Racket it becomes pretty clear.</p>
+<p>For the Omega table:</p>
+<pre><code>&gt; (solve-alpha-delta &#39;(α _ _ γ _ _ α))
+&#39;((α β α γ α δ α)
+  (α γ α γ α δ α)
+  (α β β γ δ δ α)
+  (α γ β γ δ δ α)
+  (α β α γ α γ α)
+  (α γ α γ α γ α)
+  (α β β γ δ γ α)
+  (α γ β γ δ γ α))</code></pre>
+<p>We can see that between <code>α</code> and <code>γ</code> the symbol <code>δ</code> is impossible and between the second half of <code>γ</code> back to <code>α</code> the symbol <code>β</code> is impossible.</p>
+<p>Likewise with the O table we can see a similar pattern:</p>
+<pre><code>&gt; (solve-alpha-delta &#39;(δ _ _ β _ _ δ))
+&#39;((δ α α β β δ δ)
+  (δ δ α β β δ δ)
+  (δ α β β γ δ δ)
+  (δ δ β β γ δ δ)
+  (δ α α β β γ δ)
+  (δ δ α β β γ δ)
+  (δ α β β γ γ δ)
+  (δ δ β β γ γ δ))</code></pre>
+<p>Again we see certain symbols are impossible in each substring based on knowing only the 1st and 4th symbols seen.</p>
+<p>For me this was an interesting case where Lacan’s notation wasn’t entirely clear but implementing Lacan’s symoblic language as a bit of Racket code made the problem surprisingly clear and easy to understand.</p>
+<h2 id="our-symbolic-programming">Our symbolic programming</h2>
+<p>Lacan never makes the explicit connection between programming and his symbolic language, but it leads to an interesting observation. Lacan’s main argument here (if we can say that Lacan ever really makes an argument) is that Freud’s delemea doesn’t need the “Death Drive”. We can see that if our mind is driven by symbols then we can clearly explain the repetition of events, tragic or not, by the rules that force symbols to behave in a certain way. From the perspective of a programmer it seems that Lacan is stating something that almost seems obivous in retrosepct: we can view ourselves as programmed by these symbols.</p>
+<p>If you’ve ever watched the series True Detective this may invoke images of Rust’s description of why he continues on living despite his deep pessism regarding existence:</p>
+<p><strong>Marty Hart:</strong> So what’s the point of getting out of bed in the morning?</p>
+<p><strong>Rust Cohle:</strong> I tell myself I bear witness, but the real answer is that it’s obviously my programming. And I lack the constitution for suicide.</p>
+<figure>
+<img src="./images/rust_cohle.jpg" width="300" alt="" /><figcaption>What is the relationship between the signifier and our programming?</figcaption>
+</figure>
+<p>What we’ve worked out here is a round about way of showing how Lacan’s real point is that the signifiers which provide the foundation of our unconcious are, in there own way, our programming.</p>
