@@ -13,7 +13,7 @@ We would say that there is a "cat" in this image. The word "cat" would be the si
 
 For Lacan it is these signifiers, these symbols of things, that are in fact the reality of our unconcious life. That is we operate primarily in terms of symbols, not the least of which is language itself. As an example of the role these signifigers play, consider a statement such as "I am a male technologist". It turns our there in a emoji specifically for this very idea:
 
-[image]
+!["Emoji are a great representation of the signifier"](./images/man_technologist.png){width=300px}
 
 Now when I say "male technologist" you likely have a pretty good idea what I mean, but if we pick apart what these words mean it we quickly find it is very tricky to point to what exactly I am signifying. For starters what does it mean to say that I am "male"? We can see this as expression of biological sex, but it also entrails notions of gender. What does it mean to be a "man"? You might be tempted to quickly make some statement about the number of X choromosomes, but even if that works for one technical definition of "male" it clearly doesn't do enough to explain it in all or even most social occasions. The more we explore "maleness" the more we realize that being "male" is more a signifier that a signified, it is like an emoji that we can't quite pin down exactly what it points to.
 
@@ -21,7 +21,9 @@ This is of course just one tiny example of how often times the signifier is what
 
 "the signifier that most thoroughly annihilates every signifcation--namely, money"
 
-To demonstrate just how powerful pure symobls can be Lacan give an example of a very simple symbol language which nonetheless has some very interesting properities. Given that Racket is a programming language focused specifically on symbol manipulation I thought it would be a really fun exercise to implement this specific example fo Lacan's reasoning in Racket!
+For a bit more exposition on Lacan take a look at my talk on ["The Limits of Probability"](https://www.youtube.com/watch?v=S_dqEgtpgBg).
+
+To demonstrate just how powerful pure symobls can be Lacan give an example of a very simple symbol language which nonetheless has some very interesting properities. Given that Racket is a programming language focused specifically on symbol manipulation I thought it would be a really fun exercise to implement this specific example fo Lacan's reasoning in Racket! 
 
 ### Freud, the death drive and the repetition compulsion
 
