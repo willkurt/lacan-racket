@@ -303,5 +303,4 @@ If you've ever watched the series True Detective this may invoke images of Rust'
 
 ![What is the relationship between the signifier and our programming?](./images/rust_cohle.jpg){width=300px}
 
-What've worked out here is a round about way of showing how Lacan's real point is that the signifiers which provide the foundation of our unconcious are, in there own way, our programming.
-
+What we've worked out here is a round about way of showing how Lacan's real point is that the signifiers which provide the foundation of our unconcious are, in there own way, our programming.
