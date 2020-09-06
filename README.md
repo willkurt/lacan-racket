@@ -10,4 +10,6 @@ The index page is built using Pandoc and can be generated with the following com
 `pandoc ./markdown/lacan.md -f markdown -t html -o index.html`
 
 
+The original `pandoc.css` file comes from [https://gist.github.com/killercup/5917178#file-pandoc-css](https://gist.github.com/killercup/5917178#file-pandoc-css)
+
 The code used in the post is all in `./code/lacan.rkt`
