@@ -5,6 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Will Kurt" />
+  <meta name="keywords" content="lacan, racket" />
   <title>Programming Lacan’s Symbolic Chain using Racket</title>
   <style>
     code{white-space: pre-wrap;}
@@ -18,6 +19,24 @@
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <meta property="og:title" content="Programming Lacan’s Symbolic Chain using Racket"/>
+  <meta property="og:url" content="https://willkurt.github.io/lacan-racket/"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Who would think French Critical Theorist Jacques Lacan would have an intersection with the Racket Programming Lanugage? These notes explore an interesting part in the appendix to Seminar on the Purloined Letter using Racket!"/>
+  <meta property="og:image" content="https://willkurt.github.io/lacan-racket/images/cat_ecrits.png"/>
+  <meta itemprop="name" content="Programming Lacan’s Symbolic Chain using Racket"/>
+  <meta itemprop="url" content="https://willkurt.github.io/lacan-racket/"/>
+  <meta itemprop="description" content="Who would think French Critical Theorist Jacques Lacan would have an intersection with the Racket Programming Lanugage? These notes explore an interesting part in the appendix to Seminar on the Purloined Letter using Racket!"/>
+  <meta itemprop="thumbnailUrl" content="https://willkurt.github.io/lacan-racket/images/cat_ecrits.png"/>
+  <link rel="image_src" href="https://willkurt.github.io/lacan-racket/images/cat_ecrits.png"/>
+  <meta itemprop="image" content="https://willkurt.github.io/lacan-racket/images/cat_ecrits.png"/>
+  <meta property="og:image" content=""/>
+  <meta name="twitter:title" content="Programming Lacan’s Symbolic Chain using Racket"/>
+  <meta name="twitter:image" content="https://willkurt.github.io/lacan-racket/images/cat_ecrits.png"/>
+  <meta name="twitter:url" content="https://willkurt.github.io/lacan-racket/"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:description" content="Who would think French Critical Theorist Jacques Lacan would have an intersection with the Racket Programming Lanugage? These notes explore an interesting part in the appendix to Seminar on the Purloined Letter using Racket!"/>
+  <meta name="description" content="Who would think French Critical Theorist Jacques Lacan would have an intersection with the Racket Programming Lanugage? These notes explore an interesting part in the appendix to Seminar on the Purloined Letter using Racket!" />
 </head>
 <body>
 <header id="title-block-header">
@@ -44,7 +63,9 @@
 </figure>
 <p>Now when I say “male technologist” you likely have a pretty good idea what I mean, but if we pick apart what these words mean we quickly find it is very tricky to point to what exactly I am signifying. For starters what does it mean to say that I am “male”? We can see this as expression of biological sex, but it also entrails notions of gender. What does it mean to be a “man”? You might be tempted to quickly make some statement about the number of X choromosomes, but even if that works for one technical definition of “male” it clearly doesn’t do enough to explain it in all or even most social occasions. The more we explore “maleness” the more we realize that being “male” is more a signifier that a signified, it is like an emoji that we can’t quite pin down exactly what it points to.</p>
 <p>This is of course just one tiny example of how often times the signifier is what plays a primal role in our way of interacting with the world. Lacan also points out that there is one very important signifier in our contemporary existence, which is always something with points to something else, and yet nonetheless plays an essential role in our psychology:</p>
+<blockquote>
 <p>“the signifier that most thoroughly annihilates every signifcation–namely, money”</p>
+</blockquote>
 <p>For a bit more exposition on Lacan take a look at my talk on <a href="https://www.youtube.com/watch?v=S_dqEgtpgBg">“The Limits of Probability”</a>.</p>
 <h2 id="lacan-and-racket">Lacan and Racket</h2>
 <p>To demonstrate just how powerful pure symobls can be Lacan give an example of a very simple symbol language which nonetheless has some very interesting properities. Given that Racket is a programming language focused specifically on symbol manipulation I thought it would be a really fun exercise to implement this specific example fo Lacan’s reasoning in Racket!</p>

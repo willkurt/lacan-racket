@@ -1,7 +1,3 @@
-% Programming Lacan's Symbolic Chain using Racket
-% Will Kurt
-
-
 I was recently reading through an appendix on Jacques Lacan's *Seminar on "The Purloined Letter"* and was surpised to find a discussion of a problem that seemed to fundamentally be a programming exercise. These notes are the result of some exploration I did implementing Lacan's discussion in the [Racket Programming language](https://racket-lang.org/) (a modern dialect of the Scheme programming language for those unfamiliar). This seemed to be quite a perfect fit since Lacan's primary interest is in the role that "signifiers" play in our understanding of the world and Racket is a *symbolic* programming language that focuses on the manipulation of symbols to perform computation.  The full code and original markdown for these notes can be found in [this github repo](https://github.com/willkurt/lacan-racket).
 
 ## A quick intro to Lacan

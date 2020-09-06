@@ -1,0 +1,25 @@
+---
+title:  Programming Lacan's Symbolic Chain using Racket
+author:
+- Will Kurt
+keywords: [lacan, racket]
+header-includes:
+- |
+  <meta property="og:title" content="Programming Lacan’s Symbolic Chain using Racket"/>
+  <meta property="og:url" content="https://willkurt.github.io/lacan-racket/"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Who would think French Critical Theorist Jacques Lacan would have an intersection with the Racket Programming Lanugage? These notes explore an interesting part in the appendix to Seminar on the Purloined Letter using Racket!"/>
+  <meta property="og:image" content="https://willkurt.github.io/lacan-racket/images/cat_ecrits.png"/>
+  <meta itemprop="name" content="Programming Lacan’s Symbolic Chain using Racket"/>
+  <meta itemprop="url" content="https://willkurt.github.io/lacan-racket/"/>
+  <meta itemprop="description" content="Who would think French Critical Theorist Jacques Lacan would have an intersection with the Racket Programming Lanugage? These notes explore an interesting part in the appendix to Seminar on the Purloined Letter using Racket!"/>
+  <meta itemprop="thumbnailUrl" content="https://willkurt.github.io/lacan-racket/images/cat_ecrits.png"/>
+  <link rel="image_src" href="https://willkurt.github.io/lacan-racket/images/cat_ecrits.png"/>
+  <meta itemprop="image" content="https://willkurt.github.io/lacan-racket/images/cat_ecrits.png"/><meta property="og:image" content=""/>
+  <meta name="twitter:title" content="Programming Lacan’s Symbolic Chain using Racket"/>
+  <meta name="twitter:image" content="https://willkurt.github.io/lacan-racket/images/cat_ecrits.png"/>
+  <meta name="twitter:url" content="https://willkurt.github.io/lacan-racket/"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:description" content="Who would think French Critical Theorist Jacques Lacan would have an intersection with the Racket Programming Lanugage? These notes explore an interesting part in the appendix to Seminar on the Purloined Letter using Racket!"/>
+  <meta name="description" content="Who would think French Critical Theorist Jacques Lacan would have an intersection with the Racket Programming Lanugage? These notes explore an interesting part in the appendix to Seminar on the Purloined Letter using Racket!" />
+...
