@@ -1,4 +1,4 @@
-% Programming Lacan's Symoblic Chain using Racket
+% Programming Lacan's Symbolic Chain using Racket
 % Will Kurt
 
 
